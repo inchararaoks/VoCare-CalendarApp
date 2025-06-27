@@ -81,7 +81,6 @@ export function AppointmentDialog({
   }, [appointment, isOpen])
 
   const validateForm = () => {
-    // Check required fields
     if (!formData.title.trim()) {
       setError('Termintitel ist erforderlich')
       return false
@@ -102,12 +101,11 @@ export function AppointmentDialog({
       return false
     }
 
-    // Use start date as end date if end date is not specified
     const endDateToUse = formData.endDate || formData.startDate
 
     try {
-      const startDateTime = new Date(`${format(formData.startDate, 'yyyy-MM-dd')}T${formData.startTime}:00`)
-      const endDateTime = new Date(`${format(endDateToUse, 'yyyy-MM-dd')}T${formData.endTime}:00`)
+      const startDateTime = new Date(`${format(formData.startDate!, 'yyyy-MM-dd')}T${formData.startTime}:00`)
+      const endDateTime = new Date(`${format(endDateToUse!, 'yyyy-MM-dd')}T${formData.endTime}:00`)
       
       if (isNaN(startDateTime.getTime())) {
         setError('Ungültiges Startdatum oder -zeit')
@@ -142,12 +140,10 @@ export function AppointmentDialog({
     setLoading(true)
 
     try {
-      // Use start date as end date if end date is not specified
       const endDateToUse = formData.endDate || formData.startDate
 
       const startDateTime = new Date(`${format(formData.startDate!, 'yyyy-MM-dd')}T${formData.startTime}:00`)
-      const endDateTime = new Date(`${format(formData.startDate!, 'yyyy-MM-dd')}T${formData.endTime}:00`)
-
+      const endDateTime = new Date(`${format(endDateToUse!, 'yyyy-MM-dd')}T${formData.endTime}:00`)
 
       const appointmentData: Partial<Appointment> = {
         title: formData.title.trim(),
